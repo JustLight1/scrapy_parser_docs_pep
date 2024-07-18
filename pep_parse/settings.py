@@ -6,6 +6,15 @@
 #     https://docs.scrapy.org/en/latest/topics/settings.html
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
+from pathlib import Path
+
+
+BASE_DIR = Path(__file__).parent.parent
+
+RESULTS = 'results'
+RESULTS_DIR = BASE_DIR / RESULTS
+
+DATETIME_FORMAT = '%Y-%m-%d_%H-%M-%S'
 
 BOT_NAME = 'pep_parse'
 
@@ -89,9 +98,9 @@ ITEM_PIPELINES = {
 
 
 FEEDS = {
-    'results/pep.csv': {
+    f'{RESULTS}/pep_%(time)s.csv': {
         'format': 'csv',
         'fields': ['number', 'name', 'status'],
-        'overwrite': True
+        'overwrite': True,
     }
 }
